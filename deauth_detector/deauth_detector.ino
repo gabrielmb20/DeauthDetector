@@ -12,14 +12,14 @@ extern "C" {
 
 // ===== SETTINGS ===== //
 #define LED 2              /* LED pin (2=built-in LED) */
-#define LED_INVERT true    /* Invert HIGH/LOW for LED */
+#define LED_INVERT LOW    /* Invert HIGH/LOW for LED */
 #define SERIAL_BAUD 115200 /* Baudrate for serial communication */
 #define CH_TIME 140        /* Scan time (in ms) per channel */
 #define PKT_RATE 5         /* Min. packets before it gets recognized as an attack */
 #define PKT_TIME 1         /* Min. interval (CH_TIME*CH_RANGE) before it gets recognized as an attack */
 
 // Channels to scan on (US=1-11, EU=1-13, JAP=1-14)
-const short channels[] = { 1,2,3,4,5,6,7,8,9,10,11,12,13/*,14*/ };
+const short channels[] = { 1,2,3,4,5,6,7,8,9,10,11 };
 
 // ===== Runtime variables ===== //
 int ch_index { 0 };               // Current index of channel array
@@ -59,6 +59,10 @@ void setup() {
 
   pinMode(LED, OUTPUT); // Enable LED pin
   digitalWrite(LED, LED_INVERT);
+  delay(2000);
+  digitalWrite(LED, !LED_INVERT);
+  delay(2000);
+
 
   WiFi.disconnect();                   // Disconnect from any saved or active WiFi connections
   wifi_set_opmode(STATION_MODE);       // Set device to client/station mode
